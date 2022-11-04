@@ -54,6 +54,7 @@ const activebuttons = () => {
   });
 }
 
+// DOM Structure for each task
 const storagetasks = () => {
   taskarr.forEach((element) => {
     taskContainer.innerHTML += `<div class="tasks-item" id="${element.index}">
