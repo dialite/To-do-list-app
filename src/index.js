@@ -4,6 +4,7 @@ import refreshIcon from './refresh_icon_img.png';
 import enterIcon from './enter_icon_img.png';
 import deleteIcon from './erase_icon_img.png';
 import * as func from './list_functions.js';
+import Check from './check.js';
 
 const refreshContainer = document.querySelector('.title img');
 const enterContainer = document.querySelector('.text-input img');
