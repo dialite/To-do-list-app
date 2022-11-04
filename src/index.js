@@ -68,12 +68,14 @@ const storagetasks = () => {
     });
   };
 
+// When localStorage is not empty
 if (sessionsSaved !== null) {
   taskarr = sessionsSaved;
   storagetasks();
   activebuttons();
 }
 
+// Add function with event listener in DOM
 inputText.addEventListener('keypress', (event) => {
   if (event.key === 'Enter' && inputText !== '') {
     func.add(inputText.value, taskarr);
@@ -90,5 +92,6 @@ inputText.addEventListener('keypress', (event) => {
   }
 })
 
+// Add source to image file
 refreshContainer.src = refreshIcon;
 enterContainer.src = enterIcon
