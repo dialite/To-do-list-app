@@ -88,10 +88,11 @@ inputText.addEventListener('keypress', (event) => {
       <img class="edit_icon" src="${editIcon}" alt="edit icon">
       <img class="removeicon" src="${deleteIcon}" alt="remove icon">
       </div>`;
+    inputText.value = "";
     activebuttons();
   }
 })
 
 // Add source to image file
 refreshContainer.src = refreshIcon;
-enterContainer.src = enterIcon
+enterContainer.src = enterIcon;
