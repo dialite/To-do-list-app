@@ -1,36 +1,93 @@
-import './index.css';
+import './styles.css';
+import editIcon from './edit_icon_img.png';
+import refreshIcon from './refresh_icon_img.png';
+import enterIcon from './enter_icon_img.png';
+import deleteIcon from './erase_icon_img.png';
+import * as func from './list_functions.js';
 
-const taskList = document.querySelector('.list');
-const task = [
-  {
-    index: 0,
-    description: 'House chores',
-    completed: false,
-  },
-  {
-    index: 1,
-    description: 'Read school books',
-    completed: false,
-  },
-  {
-    index: 2,
-    description: 'Lunch break',
-    completed: false,
-  },
-  {
-    index: 3,
-    description: 'Play games',
-    completed: false,
-  },
-];
+const refreshContainer = document.querySelector('.title img');
+const enterContainer = document.querySelector('.text-input img');
+const taskContainer = document.querySelector('.tasks');
+const inputText = document.querySelector('.text-input input');
+const sessionsSaved = JSON.parse(localStorage.getItem('session'));
 
-document.addEventListener('DOMContentLoaded', () => {
-  task.forEach((elem) => {
-    const listItem = document.createElement('li');
-    listItem.setAttribute('class', 'item');
-    listItem.innerHTML = `<i class="far fa-square" id=${elem.index}></i>
-    <p class='description'>${elem.description}</p>
-    <i class="fas fa-ellipsis-v"></i>`;
-    taskList.appendChild(listItem);
+let taskarr = [];
+
+const activebuttons = () => {
+  const editcontainer = document.querySelectorAll('.tasks-item-start p');
+  const editbutton = document.querySelectorAll('.edit_icon');
+  const removeicon = document.querySelectorAll('.removeicon');
+  const editinput = document.querySelectorAll('.edit_text');
+
+  // Edit function
+  editbutton.forEach((element, index) => {
+    element.addEventListener('click', () => {
+      removeicon[index].classList.add('active');
+      editcontainer[index].classList.add('active');
+      editbutton[index].classList.add('active');
+      editinput[index].classList.add('active');
+      editinput[index].addEventListener('keypress', (event) => {
+        if (event.key === "Enter" && editinput[index].value !== '') {
+          func.edit(editinput[index].value, taskarr, index);
+          localStorage.setItem('session', JSON.stringify(taskarr));
+          editcontainer[index].textContent = taskarr[index].description;
+          editcontainer[index].classList.remove('active');
+          editinput[index].classList.remove('active');
+          editbutton[index].classList.remove('active');
+          removeicon[index].classList.remove('active');
+        }
+      });
+    });
   });
-});
+
+  // Remove function
+  removeicon.forEach((element, index) => {
+    element.addEventListener('click', () => {
+      func.erase(taskarr, removeicon[index].parentElement.id);
+      localStorage.setItem('session', JSON.stringify(taskarr));
+      removeicon[index].parentElement.remove();
+      const tasks = document.querySelectorAll('.tasks-item');
+      tasks.forEach((element, index) => {
+        element.id = taskarr[index].index;
+      })
+    })
+  });
+}
+
+const storagetasks = () => {
+  taskarr.forEach((element) => {
+    taskContainer.innerHTML += `<div class="tasks-item" id="${element.index}">
+      <div class="tasks-item-start"><input type="checkbox" class="checkboxicon">
+      <p>${element.description}</p>
+      <input class="edit_text" type="text" placeholder="Edit Task">
+      </div>
+      <img class="edit_icon" src="${editIcon}" alt="edit icon">
+      <img class="removeicon" src="${deleteIcon}" alt="remove icon">
+      </div>`;
+    });
+  };
+
+if (sessionsSaved !== null) {
+  taskarr = sessionsSaved;
+  storagetasks();
+  activebuttons();
+}
+
+inputText.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter' && inputText !== '') {
+    func.add(inputText.value, taskarr);
+    localStorage.setItem('session', JSON.stringify(taskarr));
+    taskContainer.innerHTML += `<div class="tasks-item" id="${taskarr[taskarr.length - 1].index}">
+      <div class="tasks-item-start"><input type="checkbox" class="checkboxicon">
+      <p>${taskarr[taskarr.length - 1].description}</p>
+      <input class="edit_text" type="text" placeholder="Edit Task">
+      </div>
+      <img class="edit_icon" src="${editIcon}" alt="edit icon">
+      <img class="removeicon" src="${deleteIcon}" alt="remove icon">
+      </div>`;
+    activebuttons();
+  }
+})
+
+refreshContainer.src = refreshIcon;
+enterContainer.src = enterIcon
