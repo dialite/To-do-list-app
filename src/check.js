@@ -1,4 +1,4 @@
-// Checkbox functionality
+// Checkbox functionality for true or false
 export default class check {
   checked(taskarr, index) {
     this.taskarr = taskarr;

@@ -10,6 +10,7 @@ const refreshContainer = document.querySelector('.title img');
 const enterContainer = document.querySelector('.text-input img');
 const taskContainer = document.querySelector('.tasks');
 const inputText = document.querySelector('.text-input input');
+const clearCompleted = document.querySelector('.clearbutton');
 const sessionsSaved = JSON.parse(localStorage.getItem('session'));
 const checkClass = new Check();
 
@@ -119,6 +120,22 @@ inputText.addEventListener('keypress', (event) => {
     activebuttons();
   }
 });
+
+// Clear all completed functionality
+clearCompleted.addEventListener('click', () => {
+  const taskCheckBox = document.querySelectorAll('.checkboxicon');
+  taskCheckBox.forEach((element) => {
+    if (element.checked === true) {
+      element.parentElement.parentElement.remove();
+    }
+  });
+  taskarr = func.clear(taskarr);
+  localStorage.setItem('session', JSON.stringify(taskarr));
+  const tasks = document.querySelectorAll('.tasks-item');
+  tasks.forEach((element, index) => {
+    element.id = taskarr[index].index;
+  })
+})
 
 // Add source to image file
 refreshContainer.src = refreshIcon;
