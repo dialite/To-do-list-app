@@ -21,7 +21,7 @@ const activebuttons = () => {
   const editbutton = document.querySelectorAll('.edit_icon');
   const removeicon = document.querySelectorAll('.removeicon');
   const editinput = document.querySelectorAll('.edit_text');
-  const completed = document.querySelectorAll('.checkboxicon')
+  const completed = document.querySelectorAll('.checkboxicon');
 
   // Edit function
   editbutton.forEach((element, index) => {
@@ -67,8 +67,8 @@ const activebuttons = () => {
         checkClass.unchecked(taskarr, completed[index].parentElement.parentElement.id);
         localStorage.setItem('session', JSON.stringify(taskarr));
       }
-    })
-  })
+    });
+  });
 };
 
 // DOM Structure for each task
@@ -134,8 +134,8 @@ clearCompleted.addEventListener('click', () => {
   const tasks = document.querySelectorAll('.tasks-item');
   tasks.forEach((element, index) => {
     element.id = taskarr[index].index;
-  })
-})
+  });
+});
 
 // Add source to image file
 refreshContainer.src = refreshIcon;
