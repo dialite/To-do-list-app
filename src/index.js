@@ -90,7 +90,7 @@ inputText.addEventListener('keypress', (event) => {
       </div>`;
     inputText.value = '';
     activebuttons();
-  };
+  }
 });
 
 // Add source to image file
