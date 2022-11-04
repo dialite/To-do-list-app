@@ -27,7 +27,7 @@ const activebuttons = () => {
       editbutton[index].classList.add('active');
       editinput[index].classList.add('active');
       editinput[index].addEventListener('keypress', (event) => {
-        if (event.key === "Enter" && editinput[index].value !== '') {
+        if (event.key === 'Enter' && editinput[index].value !== '') {
           func.edit(editinput[index].value, taskarr, index);
           localStorage.setItem('session', JSON.stringify(taskarr));
           editcontainer[index].textContent = taskarr[index].description;
@@ -49,10 +49,10 @@ const activebuttons = () => {
       const tasks = document.querySelectorAll('.tasks-item');
       tasks.forEach((element, index) => {
         element.id = taskarr[index].index;
-      })
-    })
+      });
+    });
   });
-}
+};
 
 // DOM Structure for each task
 const storagetasks = () => {
@@ -65,8 +65,8 @@ const storagetasks = () => {
       <img class="edit_icon" src="${editIcon}" alt="edit icon">
       <img class="removeicon" src="${deleteIcon}" alt="remove icon">
       </div>`;
-    });
-  };
+  });
+};
 
 // When localStorage is not empty
 if (sessionsSaved !== null) {
@@ -88,10 +88,10 @@ inputText.addEventListener('keypress', (event) => {
       <img class="edit_icon" src="${editIcon}" alt="edit icon">
       <img class="removeicon" src="${deleteIcon}" alt="remove icon">
       </div>`;
-    inputText.value = "";
+    inputText.value = '';
     activebuttons();
-  }
-})
+  };
+});
 
 // Add source to image file
 refreshContainer.src = refreshIcon;
