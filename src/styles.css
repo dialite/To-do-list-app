@@ -8,7 +8,7 @@ body {
   width: 60%;
   border-radius: 2px;
   border: solid black 1px;
-  font-size: 32px;
+  font-size: 34px;
   box-shadow: 5px 5px 5px 5px rgb(207, 205, 205);
   margin-top: 6%;
 }
@@ -40,7 +40,8 @@ body {
 .text-input input {
   border: none;
   font-style: italic;
-  font-size: 18px;
+  font-size: 20px;
+  width: 80%;
 }
 
 .text-input input:focus {
@@ -84,6 +85,7 @@ body {
 
 .tasks-item-start p {
   display: block;
+  font-size: 2vw;
 }
 
 .tasks-item-start p.active {
@@ -126,9 +128,11 @@ body {
   display: none;
 }
 
-.button {
+.clearbutton {
   display: flex;
   justify-content: center;
   font-size: 24px;
   color: gray;
+  cursor: pointer;
+  text-align: center;
 }

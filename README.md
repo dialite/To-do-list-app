@@ -5,7 +5,6 @@
 > To-do-list
 This is a simple app that allows users to add and remove tasks as to-do-list and relate with local storage.
 
-
 # WORK FLOW SCREEN
 ## SCREEN SHOT
 ![screenshot](./interactive.png)

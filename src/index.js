@@ -4,12 +4,15 @@ import refreshIcon from './refresh_icon_img.png';
 import enterIcon from './enter_icon_img.png';
 import deleteIcon from './erase_icon_img.png';
 import * as func from './list_functions.js';
+import Check from './check.js';
 
 const refreshContainer = document.querySelector('.title img');
 const enterContainer = document.querySelector('.text-input img');
 const taskContainer = document.querySelector('.tasks');
 const inputText = document.querySelector('.text-input input');
+const clearCompleted = document.querySelector('.clearbutton');
 const sessionsSaved = JSON.parse(localStorage.getItem('session'));
+const checkClass = new Check();
 
 let taskarr = [];
 
@@ -18,6 +21,7 @@ const activebuttons = () => {
   const editbutton = document.querySelectorAll('.edit_icon');
   const removeicon = document.querySelectorAll('.removeicon');
   const editinput = document.querySelectorAll('.edit_text');
+  const completed = document.querySelectorAll('.checkboxicon');
 
   // Edit function
   editbutton.forEach((element, index) => {
@@ -52,19 +56,43 @@ const activebuttons = () => {
       });
     });
   });
+
+  // Checkbox Operation function
+  completed.forEach((element, index) => {
+    element.addEventListener('change', () => {
+      if (element.checked === true) {
+        checkClass.checked(taskarr, completed[index].parentElement.parentElement.id);
+        localStorage.setItem('session', JSON.stringify(taskarr));
+      } else {
+        checkClass.unchecked(taskarr, completed[index].parentElement.parentElement.id);
+        localStorage.setItem('session', JSON.stringify(taskarr));
+      }
+    });
+  });
 };
 
 // DOM Structure for each task
 const storagetasks = () => {
   taskarr.forEach((element) => {
-    taskContainer.innerHTML += `<div class="tasks-item" id="${element.index}">
-      <div class="tasks-item-start"><input type="checkbox" class="checkboxicon">
-      <p>${element.description}</p>
-      <input class="edit_text" type="text" placeholder="Edit Task">
-      </div>
-      <img class="edit_icon" src="${editIcon}" alt="edit icon">
-      <img class="removeicon" src="${deleteIcon}" alt="remove icon">
-      </div>`;
+    if (element.completed === false) {
+      taskContainer.innerHTML += `<div class="tasks-item" id="${element.index}">
+        <div class="tasks-item-start"><input type="checkbox" class="checkboxicon">
+        <p>${element.description}</p>
+        <input class="edit_text" type="text" placeholder="Edit Task">
+        </div>
+        <img class="edit_icon" src="${editIcon}" alt="edit icon">
+        <img class="removeicon" src="${deleteIcon}" alt="remove icon">
+        </div>`;
+    } else {
+      taskContainer.innerHTML += `<div class="tasks-item" id="${element.index}">
+        <div class="tasks-item-start"><input type="checkbox" class="checkboxicon" checked>
+        <p>${element.description}</p>
+        <input class="edit_text" type="text" placeholder="Edit Task">
+        </div>
+        <img class="edit_icon" src="${editIcon}" alt="edit icon">
+        <img class="removeicon" src="${deleteIcon}" alt="remove icon">
+        </div>`;
+    }
   });
 };
 
@@ -91,6 +119,22 @@ inputText.addEventListener('keypress', (event) => {
     inputText.value = '';
     activebuttons();
   }
+});
+
+// Clear all completed functionality
+clearCompleted.addEventListener('click', () => {
+  const taskCheckBox = document.querySelectorAll('.checkboxicon');
+  taskCheckBox.forEach((element) => {
+    if (element.checked === true) {
+      element.parentElement.parentElement.remove();
+    }
+  });
+  taskarr = func.clear(taskarr);
+  localStorage.setItem('session', JSON.stringify(taskarr));
+  const tasks = document.querySelectorAll('.tasks-item');
+  tasks.forEach((element, index) => {
+    element.id = taskarr[index].index;
+  });
 });
 
 // Add source to image file
