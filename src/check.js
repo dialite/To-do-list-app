@@ -5,7 +5,7 @@ export default class check {
     this.taskarr[index - 1].completed = true;
   }
 
-  uncheked(taskarr, index) {
+  unchecked(taskarr, index) {
     this.taskarr = taskarr;
     this.taskarr[index - 1].completed = false;
   }
