@@ -46,7 +46,14 @@ describe('erase functions method', () => {
       },
       {
         description: 'third text', completed: false, index: 2,
-      }];
+      },
+      {
+        description: 'fourth text',
+        completed: false,
+        index: 3,
+      },
+    ];
+    erase(arr, 3);
     erase(arr, 2);
     erase(arr, 1);
     erase(arr, 0);
@@ -54,7 +61,7 @@ describe('erase functions method', () => {
   });
 });
 
-// Clear Function
+// Clear all and completed status Functions
 describe('clear functions method', () => {
   it('this should be able to clear all items in the array that completed is true', () => {
     const arr = [{ description: 'first text', completed: true, index: 0 },
@@ -63,9 +70,15 @@ describe('clear functions method', () => {
         description: 'third text',
         completed: true,
         index: 2,
-      }];
+      },
+      {
+        description: 'third text',
+        completed: false,
+        index: 3,
+      },
+    ];
     const returedarr = clear(arr);
     // deletes the ones that completed is true
-    expect(returedarr.length).toBe(1);
+    expect(returedarr.length).toBe(2);
   });
 });
