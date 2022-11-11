@@ -53,7 +53,7 @@ describe('erase functions method', () => {
         index: 3,
       },
     ];
-    erase(arr, 3)
+    erase(arr, 3);
     erase(arr, 2);
     erase(arr, 1);
     erase(arr, 0);
@@ -75,7 +75,8 @@ describe('clear functions method', () => {
         description: 'third text',
         completed: false,
         index: 3,
-      },];
+      },
+    ];
     const returedarr = clear(arr);
     // deletes the ones that completed is true
     expect(returedarr.length).toBe(2);
